@@ -3,8 +3,8 @@ vim.opt.guicursor = ""
 return {
   lsp = {
     formatting = {
-      format_on_save = true
-    }
+      format_on_save = true,
+    },
   },
   mappings = {
     i = {
@@ -20,17 +20,21 @@ return {
       ["<C-j>"] = { "o<Esc>", desc = "New line under cursor" },
       ["<C-k>"] = { "O<Esc>", desc = "New line over cursor" },
       ["<Tab>"] = {
-        function() require("astronvim.utils.buffer").nav(vim.v.count > 0 and vim.v.count or 1) end,
-        desc = "Next buffer"
+        function()
+          require("astronvim.utils.buffer").nav(vim.v.count > 0 and vim.v.count or 1)
+        end,
+        desc = "Next buffer",
       },
       ["<S-Tab>"] = {
-        function() require("astronvim.utils.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1)) end,
-        desc = "Prev buffer"
+        function()
+          require("astronvim.utils.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1))
+        end,
+        desc = "Prev buffer",
       },
     },
 
     t = {
-      ["hh"] = { "<C-\\><C-n>" }
-    }
-  }
+      ["hh"] = { "<C-\\><C-n>" },
+    },
+  },
 }
