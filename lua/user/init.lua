@@ -5,6 +5,11 @@ return {
     formatting = {
       format_on_save = true,
     },
+    config = {
+      clangd = {
+        capabilities = { offsetEncoding = "utf-16" },
+      },
+    },
   },
   mappings = {
     i = {
