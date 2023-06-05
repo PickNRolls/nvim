@@ -1,10 +1,15 @@
 vim.opt.guicursor = ""
 
-
 return {
   lsp = {
     formatting = {
       format_on_save = true,
+      filter = function(client)
+        if vim.bo.filetype == "typescript" or
+            vim.bo.filetype == "typescriptreact" then
+          return client.name == "null-ls"
+        end
+      end
     },
     config = {
       clangd = {
