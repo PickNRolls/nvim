@@ -9,6 +9,8 @@ return {
             vim.bo.filetype == "typescriptreact" then
           return client.name == "null-ls"
         end
+
+        return true
       end
     },
     config = {
