@@ -145,6 +145,21 @@ return {
           },
         }
       end,
-    }
+    },
+    {
+      "williamboman/mason-lspconfig.nvim",
+      opts = {
+        ensure_installed = {
+          "clangd",
+          "cssls",
+          "dockerls",
+          "eslint",
+          "html",
+          "jsonls",
+          "lua_ls",
+          "tsserver",
+        }, -- automatically install lsp
+      },
+    },
   }
 }
