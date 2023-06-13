@@ -4,10 +4,20 @@ return {
   lsp = {
     formatting = {
       format_on_save = true,
+      debug = true,
       filter = function(client)
         if vim.bo.filetype == "typescript" or
             vim.bo.filetype == "typescriptreact" then
-          return client.name == "null-ls"
+          if client.name == "eslint" then
+            client.server_capabilities.documentFormattingProvider = true
+            client.server_capabilities.codeActionProvider = true
+          end
+          return client.name == "eslint"
+        end
+
+        if client.name == "null-ls" then
+          client.server_capabilities.codeActionProvider = false
+          return false
         end
 
         return true
