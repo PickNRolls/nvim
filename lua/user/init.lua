@@ -2,6 +2,10 @@ vim.opt.guicursor = ""
 
 return {
   lsp = {
+    setup_handlers = {
+      -- add custom handler
+      rust_analyzer = function(_, opts) require("rust-tools").setup { server = opts } end
+    },
     formatting = {
       format_on_save = true,
       debug = true,
@@ -146,6 +150,7 @@ return {
         }
       end,
     },
+    "simrat39/rust-tools.nvim",
     {
       "williamboman/mason-lspconfig.nvim",
       opts = {
