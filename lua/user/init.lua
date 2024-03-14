@@ -1,5 +1,16 @@
 vim.opt.guicursor = ""
 
+vim.api.nvim_create_autocmd({ "BufWinLeave" }, {
+  pattern = { "*.*" },
+  desc = "save view (folds), when closing file",
+  command = "mkview",
+})
+vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
+  pattern = { "*.*" },
+  desc = "load view (folds), when opening file",
+  command = "silent! loadview"
+})
+
 return {
   lsp = {
     setup_handlers = {
@@ -8,7 +19,6 @@ return {
     },
     formatting = {
       format_on_save = true,
-      debug = true,
       filter = function(client)
         if vim.bo.filetype == "typescript" or
             vim.bo.filetype == "typescriptreact" then
@@ -45,8 +55,26 @@ return {
     n = {
       ["<leader>c"] = { function() require("astronvim.utils.buffer").close(nil, true) end, desc = "Close buffer" },
       ["<C-s>"] = { ":w!<cr>", desc = "Save File" },
-      ["<C-j>"] = { "o<Esc>", desc = "New line under cursor" },
-      ["<C-k>"] = { "O<Esc>", desc = "New line over cursor" },
+      ["<C-j>"] = {
+        function()
+          if vim.opt.modifiable:get() then
+            vim.cmd("norm o")
+          else
+            vim.cmd('exe "norm \\<c-w>j"')
+          end
+        end,
+        desc = "New line under cursor"
+      },
+      ["<C-k>"] = {
+        function()
+          if vim.opt.modifiable:get() then
+            vim.cmd("norm O")
+          else
+            vim.cmd('exe "norm \\<c-w>k"')
+          end
+        end,
+        desc = "New line over cursor"
+      },
       ["<Tab>"] = {
         function()
           require("astronvim.utils.buffer").nav(vim.v.count > 0 and vim.v.count or 1)
