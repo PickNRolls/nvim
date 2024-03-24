@@ -11,6 +11,19 @@ vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
   command = "silent! loadview"
 })
 
+local nav = function(count)
+  local current_buf = vim.api.nvim_get_current_buf()
+
+  for i, v in ipairs(vim.t.bufs) do
+    if current_buf == v then
+      local next = (i + count - 1) % #vim.t.bufs + 1
+
+      vim.cmd.b(vim.t.bufs[next])
+      break
+    end
+  end
+end
+
 return {
   lsp = {
     setup_handlers = {
@@ -54,6 +67,7 @@ return {
 
     n = {
       ["<leader>c"] = { function() require("astronvim.utils.buffer").close(nil, true) end, desc = "Close buffer" },
+      ["<leader>w"] = false,
       ["<C-s>"] = { ":w!<cr>", desc = "Save File" },
       ["<C-j>"] = {
         function()
@@ -77,13 +91,13 @@ return {
       },
       ["<Tab>"] = {
         function()
-          require("astronvim.utils.buffer").nav(vim.v.count > 0 and vim.v.count or 1)
+          nav(vim.v.count > 0 and vim.v.count or 1)
         end,
         desc = "Next buffer",
       },
       ["<S-Tab>"] = {
         function()
-          require("astronvim.utils.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1))
+          nav(-(vim.v.count > 0 and vim.v.count or 1))
         end,
         desc = "Prev buffer",
       },
