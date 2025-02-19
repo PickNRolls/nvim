@@ -2,7 +2,7 @@ return {
   -- the colorscheme should be available when starting Neovim
   {
     "folke/tokyonight.nvim",
-    lazy = false,  -- make sure we load this during startup if it is your main colorscheme
+    lazy = false,    -- make sure we load this during startup if it is your main colorscheme
     priority = 1000, -- make sure to load this before all the other start plugins
     config = function()
       -- load the colorscheme here
@@ -30,22 +30,22 @@ return {
     end,
   },
 
-  {
-    "nvimtools/none-ls.nvim",
-    dependencies = {
-      "nvimtools/none-ls-extras.nvim",
-    },
-    config = function()
-      local null_ls = require("null-ls")
-
-      null_ls.setup({
-        sources = {
-          null_ls.builtins.formatting.stylua,
-          require("none-ls.diagnostics.eslint"),
-        },
-      })
-    end,
-  },
+  -- {
+  --   "nvimtools/none-ls.nvim",
+  --   dependencies = {
+  --     "nvimtools/none-ls-extras.nvim",
+  --   },
+  --   config = function()
+  --     local null_ls = require("null-ls")
+  --
+  --     null_ls.setup({
+  --       debug = true,
+  --       sources = {
+  --         require("none-ls.diagnostics.eslint_d"),
+  --       },
+  --     })
+  --   end,
+  -- },
 
   {
     "williamboman/mason.nvim",
